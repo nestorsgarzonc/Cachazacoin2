@@ -1,8 +1,10 @@
 package Logic;
+
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Educoin {
@@ -27,7 +29,7 @@ public class Educoin {
 		bloqueGenesis.salidas.add(new TransaccionSaliente(bloqueGenesis.destinatario, bloqueGenesis.valor, bloqueGenesis.transaccionId));
 		UTXOs.put(bloqueGenesis.salidas.get(0).id, bloqueGenesis.salidas.get(0));
 		//PRUEBA VENTANAS EMERGENTES
-		JOptionPane.showMessageDialog(null, "Minando el bloque genesis", " " ,JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Minando el bloque genesis", "Advertencia" ,JOptionPane.INFORMATION_MESSAGE);
 
 		System.out.println("Minando el bloque genesis ");
 		Bloque genesis = new Bloque("0");
@@ -124,8 +126,9 @@ public class Educoin {
 					, "Error" ,JOptionPane.ERROR_MESSAGE);
 					return false;
 				}}}
-		JOptionPane.showMessageDialog(null, "La cadena de bloques es valida", "Error" ,JOptionPane.INFORMATION_MESSAGE);
-		System.out.println("La cadena de bloques es valida");
+		ImageIcon icono=new ImageIcon(".//recourses/emojiFeliz.png");
+		ImageIcon icono1=new ImageIcon(icono.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+		JOptionPane.showMessageDialog(null, "La cadena de bloques es valida", "Felicitaciones" ,JOptionPane.INFORMATION_MESSAGE, icono1);
 		return true;
 	}
 	
