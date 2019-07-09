@@ -1,6 +1,7 @@
 package Logic;
 
 import java.security.Security;
+	
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Image;
@@ -23,7 +24,7 @@ public class Educoin {
 		monederoB = new Monedero();		
 		Monedero monederoCentral = new Monedero();
 		//Creacion de bloque genesis que envia 100EC al monederoA
-		bloqueGenesis = new Transaccion(monederoCentral.llavePublica, monederoA.llavePublica, 1000f, null);
+		bloqueGenesis = new Transaccion(monederoCentral.llavePublica, monederoA.llavePublica, 1000, null);
 		bloqueGenesis.generarFirma(monederoCentral.llavePrivada);	 //Firma manual de la transaccion
 		bloqueGenesis.transaccionId = "0"; //ID de la transaccion manual asignar
 		bloqueGenesis.salidas.add(new TransaccionSaliente(bloqueGenesis.destinatario, bloqueGenesis.valor, bloqueGenesis.transaccionId));
@@ -36,28 +37,29 @@ public class Educoin {
 		genesis.añadirTransaccion(bloqueGenesis);
 		añadirBloque(genesis);
 		
-		Bloque block1 = new Bloque(genesis.hash);
+		Bloque block1 = new Bloque(blockchain.get(blockchain.size()-1).hash);
 		System.out.println("\nMonederoA saldo: " + monederoA.obtenerBalance());
 		System.out.println("\nMonederoA envia 40 E.C MonederoB...");
-		block1.añadirTransaccion(monederoA.enviarFondos(monederoB.llavePublica, 40f));
+		block1.añadirTransaccion(monederoA.enviarFondos(monederoB.llavePublica, 40));
 		añadirBloque(block1);
 		System.out.println("\nMonederoA balance: " + monederoA.obtenerBalance());
 		System.out.println("\nMonederoB balance: " + monederoB.obtenerBalance());
+		System.out.println(blockchain.size()-1);
 		
-		Bloque block2 = new Bloque(block1.hash);
+		Bloque block2 = new Bloque(blockchain.get(blockchain.size()-1).hash);
 		System.out.println("\nMonederoA envia 1000 E.C a MonederoB");
-		block2.añadirTransaccion(monederoA.enviarFondos(monederoB.llavePublica, 1000f));
+		block2.añadirTransaccion(monederoA.enviarFondos(monederoB.llavePublica, 1000));
 		añadirBloque(block2);
 		System.out.println("\nMonederoA balance: " + monederoA.obtenerBalance());
 		System.out.println("\nMonederoB balance: " + monederoB.obtenerBalance());
 		
-		Bloque block3 = new Bloque(block2.hash);
+		Bloque block3 = new Bloque(blockchain.get(blockchain.size()-1).hash);
 		System.out.println("\nMonederoB envia 20 E.C para MonederoA...");
 		block3.añadirTransaccion(monederoB.enviarFondos( monederoA.llavePublica, 20));
 		System.out.println("\nMonederoA balance: " + monederoA.obtenerBalance());
 		System.out.println("\nMonederoB balance: " + monederoB.obtenerBalance());
 		
-		Bloque block4 = new Bloque(block3.hash);
+		Bloque block4 = new Bloque(blockchain.get(blockchain.size()-1).hash);
 		System.out.println("\nMonederoB envia 20 para MonederoA...");
 		block4.añadirTransaccion(monederoB.enviarFondos( monederoA.llavePublica, 20));
 		System.out.println("\nMonederoA balance: " + monederoA.obtenerBalance());
